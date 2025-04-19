@@ -6,12 +6,19 @@
 
 ## Overview
 
-`NotificationTask` is
+NotificationTask is a Swift library that provides a simple and easy-to-use way to manage Swift concurrency `Task`s that observe notifications. The `NotificationTask` class allows you to create tasks that receive notifications and call the given closure with each notification, and optionally also with a context parameter so you don't have to manage its lifetime.
+
+It uses a Swift `Task` to ensure that all resources are properly cleaned up when the `NotificationTask` is cancelled or deallocated. This library is designed for use in view layer code, making it easy to integrate with your app's user interface and/or view-model layer.
+
+That's it. It's pretty trivial. I just got tired of writing it over and over.
 
 ## Installation
 
+Honestly you should probably just copy [NotificationTask.swift]() into your project.
+
 The only way to install this package is with Swift Package Manager (SPM). Please [file a new issue][] or submit a pull-request if you want to use something else.
 
+[NotificationTask.swift]: https://github.com/samsonjs/NotificationTask/blob/main/Sources/NotificationTask/NotificationTask.swift
 [file a new issue]: https://github.com/samsonjs/NotificationTask/issues/new
 
 ### Supported Platforms
@@ -46,7 +53,7 @@ import NotificationTask
 }
 ```
 
-Example using context to avoid reference cycles with `self`:
+This example uses the context parameter to avoid reference cycles with `self`:
 
 ```swift
 import NotificationTask
