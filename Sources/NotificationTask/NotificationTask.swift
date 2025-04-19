@@ -14,8 +14,8 @@ extension Notification: @unchecked @retroactive Sendable {}
 /// always receives a strong reference. This one is called ``init(name:context:center:performing:)``.
 ///
 /// ``NotificationTask`` is bound to the main actor and is intended to be used in your view layer. This keeps it simple
-@MainActor public final class NotificationTask {
-    var task: Task<Void, Never>?
+@MainActor public final class NotificationTask: Hashable {
+    let task: Task<Void, Never>
 
     init(task: Task<Void, Never>) {
         self.task = task
@@ -49,7 +49,22 @@ extension Notification: @unchecked @retroactive Sendable {}
     }
 
     deinit {
-        task?.cancel()
-        task = nil
+        task.cancel()
+    }
+
+    public func store(in set: inout Set<NotificationTask>) {
+        set.insert(self)
+    }
+}
+
+// MARK: - Hashable conformance
+
+public extension NotificationTask {
+    nonisolated static func == (lhs: NotificationTask, rhs: NotificationTask) -> Bool {
+        ObjectIdentifier(lhs) == ObjectIdentifier(rhs)
+    }
+
+    nonisolated func hash(into hasher: inout Hasher) {
+        hasher.combine(task)
     }
 }
