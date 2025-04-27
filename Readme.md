@@ -1,3 +1,7 @@
+**Obsoleted by [AsyncMonitor](https://github.com/samsonjs/AsyncMonitor) and no longer maintained**
+
+----
+
 # NotificationTask
 
 [![0 dependencies!](https://0dependencies.dev/0dependencies.svg)](https://0dependencies.dev)
